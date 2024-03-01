@@ -1,9 +1,8 @@
 import React from 'react'
-import style from './Button.module.css'
+import s from './Button.module.css'
 
-
-export const Button = ({ onClick }) => (
-  <button className={style.Button} onClick={onClick}>
-    Load more
-  </button>
-);
+export const Button = ({onClick}) => {
+  return (
+      <button onClick={onClick} className={s.button}>Load more</button>
+  )
+}
