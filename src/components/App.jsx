@@ -3,6 +3,7 @@ import { Searchbar } from './SearchBar/SearchBar'
 import { ImageGallery } from './ImageGallery/ImageGallery'
 import { Button } from './Button/Button'
 import { fetchPosts } from 'Services/api'
+import Loader from './Loader/Loader'
 
 export class App extends Component {
   
@@ -18,22 +19,44 @@ export class App extends Component {
 }
 
   async componentDidMount() {
- try {
-   const {hits, total} = await fetchPosts()
-   this.setState({items: hits, total: total})
- } catch (error) {
-   this.setState({error})
- }
-}
+    try {
+      this.setState({ loading: true });
+      const { hits, total } = await fetchPosts();
+      this.setState({ items: hits, total: total });
+    } catch (error) {
+      this.setState({ error });
+    } finally {
+      this.setState({ loading: false });
+    }
+  }
 
+  async componentDidUpdate(prevProps, prevState) {
+    if ((prevState.page !== this.state.page || prevState.query !== this.state.query) && !this.state.loading) {
+      try {
+        this.setState({ loading: true });
+        const { total, hits } = await fetchPosts({ page: this.state.page });
+        this.setState(prev => ({ items: [...prev.items, ...hits], total: total }));
+      } catch (error) {
+      } finally {
+        this.setState({ loading: false });
+      }
+    }
+  }
+
+  handleLoadMore = () => {
+    this.setState(prev => ({ page: prev.page + 1 }));
+  }
+  
+  
   render() {
-    const { items } = this.state;
+    const { items, loading } = this.state;
     return (
-    <div>
+      <div>
         <Searchbar />
-        <ImageGallery images={items}/>
-<Button />
-    </div >
+        <ImageGallery images={items} />
+        {loading && <Loader />}
+        {items.length ? <Button onClick={this.handleLoadMore} /> : null}
+      </div>
     )
   }
 }
