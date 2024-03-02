@@ -9,7 +9,7 @@ export const ModalWrapper = styled.div`
 	background-color: rgba(0, 0, 0, 0.5);
 `;
 
-export const ModalContent = styled.div`
+export const ModalContent = styled.div `
 	position: relative;
 	background-color: white;
 	padding: 20px;
@@ -28,11 +28,10 @@ export const CloseButton = styled.button`
 	cursor: pointer;
 `;
 
-export const Img = styled.img`
-max-width: 100%; /* Забезпечує, щоб зображення не перевищувало ширину батьківського контейнера */
-  max-height: 80vh; /* Обмежує максимальну висоту зображення до 80% висоти екрану */
-  height: auto; /* Зберігає пропорції зображення */
-  border-radius: 5px; /* Округлені кути */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Тінь */
-  object-fit: cover; /* Заповнює контейнер зображенням, зберігаючи пропорції та обрізаючи зайвий контент */
-`
+export const Img = styled.img `
+max-width: 100%;
+  max-height: 80vh;
+  height: auto;
+  border-radius: 5px; 
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); 
+  object-fit: cover`;

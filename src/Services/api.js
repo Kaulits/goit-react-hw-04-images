@@ -17,7 +17,7 @@ export const fetchImg = async configParams => {
 export const fetchImgByQuery = async configParams => {
     const { data } = await axios.get('api/', {
         params: {
-            key: '39076569-9cff8913da31274e2ad8311c4',
+            key: '39076594-40f947c0249a2467761500a04',
             page: 1,
             per_page: 12,
             ...configParams,

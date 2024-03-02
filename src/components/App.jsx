@@ -7,7 +7,7 @@ import Searchbar from "./SearchBar/SearchBar";
 import Loader from "./Loader/Loader";
 import Modal from "./Modal/Modal";
 
-import s from './App.module.css'
+import style from './App.module.css'
 
 
 export class App extends Component {
@@ -71,7 +71,7 @@ export class App extends Component {
   render() {
     const { items, loading, totalImg, isOpen, content } = this.state;
     return (
-      <div className={s.app}>
+      <div className={style.app}>
         <Searchbar handleSetQuery={this.handleSetQuery} />
         <ImageGallery images={items}  openModal={this.handleSeeMoreInfo}/>
         

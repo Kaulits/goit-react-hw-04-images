@@ -9,7 +9,6 @@ class Modal extends React.Component {
   }
   
 	componentWillUnmount() {
-		// toast.info('Modal is closed')
 		document.body.style.overflowY = 'auto'
 
 		document.removeEventListener('keydown', this.handleKeyDown)
@@ -25,9 +24,7 @@ class Modal extends React.Component {
 	}
 
 	handleBackdropClick = e => {
-		// this.props.closeModal()
-		// console.log('TARGET ->>>>> ', e.target)
-		// console.log('CURRENT TARGET ->>>>>', e.currentTarget)
+
 		if (e.target === e.currentTarget) {
 			this.props.closeModal()
 		}
