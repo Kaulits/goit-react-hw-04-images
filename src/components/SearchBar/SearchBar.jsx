@@ -1,26 +1,29 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react';
 import style from './SearchBar.module.css'
 
-export default class Searchbar extends Component {
+const Searchbar = ({ handleSetQuery }) => {
 
-    state = {
-        searchValue: '',
+     const [searchValue, setSearchValue] = useState('');
+    // state = {
+    //     searchValue: '',
+    // }
+
+
+    const handleChangeValue = (e) => {
+        // this.setState({searchValue:e.target.value})
+         setSearchValue(e.target.value);
     }
 
-
-    handleChangeValue = (e) => {
-        this.setState({searchValue:e.target.value})
-    }
-
-    handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        this.props.handleSetQuery(this.state.searchValue)
+         handleSetQuery(searchValue);
+        // this.props.handleSetQuery(this.state.searchValue)
 
     }
-  render() {
+
       return (
           <header className={style.searchbar}>
-              <form className={style.form} onSubmit={this.handleSubmit}>
+              <form className={style.form} onSubmit={handleSubmit}>
                   
                   <input
                       className={style.input}
@@ -28,13 +31,14 @@ export default class Searchbar extends Component {
                       autoComplete="off"
                       autoFocus
                       placeholder="Search images and photos"
-                      value={this.state.searchValue}
-                      onChange={this.handleChangeValue}
+                       value={searchValue}
+          onChange={handleChangeValue}
                   /><button type="submit" className={style.button}>
                      
                   </button>
               </form>
           </header>
       );
-    };
 };
+    
+export default Searchbar;
