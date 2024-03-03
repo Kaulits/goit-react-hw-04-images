@@ -1,48 +1,63 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import { CloseButton, ModalContent, ModalWrapper, Img } from './Modal.styled'
 
-class Modal extends React.Component {
+const Modal = ({ closeModal, content }) => {
 
-	componentDidMount() {
-		document.body.style.overflowY = 'hidden'
-		document.addEventListener('keydown', this.handleKeyDown)
-  }
+ useEffect(() => {
+    document.body.style.overflowY = 'hidden';
+    const handleKeyDown = e => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflowY = 'auto';
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [closeModal]);
+
+// 	componentDidMount() {
+// 		document.body.style.overflowY = 'hidden'
+// 		document.addEventListener('keydown', this.handleKeyDown)
+//   }
   
-	componentWillUnmount() {
-		document.body.style.overflowY = 'auto'
+// 	componentWillUnmount() {
+// 		document.body.style.overflowY = 'auto'
 
-		document.removeEventListener('keydown', this.handleKeyDown)
-		clearInterval(this.intervalId)
-		clearTimeout(this.timeoutId)
+// 		document.removeEventListener('keydown', this.handleKeyDown)
+// 		clearInterval(this.intervalId)
+// 		clearTimeout(this.timeoutId)
+// 	}
+
+	// const handleKeyDown = e => {
+	// 	console.log(e.key)
+	// 	if (e.key === 'Escape') {
+	// 		this.props.closeModal()
+	// 	}
+	// }
+
+	const handleBackdropClick = e => {
+   if (e.target === e.currentTarget) {
+      closeModal();
+    }
+		// if (e.target === e.currentTarget) {
+		// 	this.props.closeModal()
+		// }
 	}
 
-	handleKeyDown = e => {
-		console.log(e.key)
-		if (e.key === 'Escape') {
-			this.props.closeModal()
-		}
-	}
 
-	handleBackdropClick = e => {
-
-		if (e.target === e.currentTarget) {
-			this.props.closeModal()
-		}
-	}
-
-  render() {
 		return (
-			<ModalWrapper onClick={this.handleBackdropClick}>
+			<ModalWrapper onClick={handleBackdropClick}>
 				<ModalContent>
           <>
-            <Img src={this.props.content.largeImageURL} alt="this.props.content.tags" />
+             <Img src={content.largeImageURL} alt={content.tags} />
 					</>
-					<CloseButton onClick={this.props.closeModal}>×</CloseButton>
-					{this.props.children}
+					    <CloseButton onClick={closeModal}>×</CloseButton>
 				</ModalContent>
 			</ModalWrapper>
 		)
 	}
-}
+
 
 export default Modal;
